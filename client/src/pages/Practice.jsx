@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-function Learn() {
+function Practice() {
   const videoRef = useRef(null)
   const [prediction, setPrediction] = useState('None')
   const [isPredicting, setIsPredicting] = useState(false)
@@ -68,13 +68,9 @@ function Learn() {
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
           </Link>
-          <h1>Learn ASL</h1>
+          <h1>Practice ASL</h1>
         </header>
         
-        <div className="try" style={{ marginBottom: "30px", padding: "10px 20px"}}>
-          <p><span>What is you</span> name?</p>
-        </div>
-
         <div className="video-container">
           <video ref={videoRef} autoPlay muted className="webcam-feed" />
           <div className="prediction-overlay">
@@ -116,4 +112,4 @@ function Learn() {
   )
 }
 
-export default Learn
+export default Practice
