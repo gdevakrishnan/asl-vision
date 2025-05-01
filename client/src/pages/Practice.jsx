@@ -68,7 +68,7 @@ function Practice() {
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
           </Link>
-          <h1>Practice ASL</h1>
+          <h1>Practice ISL</h1>
         </header>
         
         <div className="video-container">

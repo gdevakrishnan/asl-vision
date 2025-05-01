@@ -6,7 +6,7 @@ const About = () => {
       {/* Header Section */}
       <div className="about-header">
         <div className="about-header-content">
-          <h1 className="about-title">About ASL Vision</h1>
+          <h1 className="about-title">About ISL Vision</h1>
           <div className="about-header-divider"></div>
           <p className="about-subtitle">
             Empowering communication through technology and accessibility
@@ -38,18 +38,18 @@ const About = () => {
                     opacity="0.8"
                   />
                 </g>
-                <text x="150" y="220" textAnchor="middle" fill="#1e40af" fontWeight="bold" fontSize="24">ASL</text>
+                <text x="150" y="220" textAnchor="middle" fill="#1e40af" fontWeight="bold" fontSize="24">ISL</text>
               </svg>
             </div>
             <div className="mission-text">
               <p>
-                At ASL Vision, our mission is to break down communication barriers by making American 
+                At ISL Vision, our mission is to break down communication barriers by making Indian 
                 Sign Language education accessible to everyone. We believe that language should never 
                 be a barrier to human connection.
               </p>
               <p>
                 Through cutting-edge technology and thoughtful design, we aim to create an intuitive 
-                learning experience that empowers users to communicate confidently in ASL, fostering 
+                learning experience that empowers users to communicate confidently in ISL, fostering 
                 inclusivity and understanding between deaf and hearing communities.
               </p>
             </div>
@@ -68,7 +68,7 @@ const About = () => {
               </div>
               <h3 className="feature-title">Interactive Video Lessons</h3>
               <p className="feature-description">
-                Learn from crystal-clear instructional videos featuring native ASL signers, with 
+                Learn from crystal-clear instructional videos featuring native ISL signers, with 
                 multiple angles and speeds to perfect your technique.
               </p>
             </div>
@@ -136,7 +136,7 @@ const About = () => {
         <div className="section-container">
           <h2 className="section-title">Our Team</h2>
           <p className="team-intro">
-            ASL Vision was founded by a diverse team of deaf and hearing professionals passionate about 
+            ISL Vision was founded by a diverse team of deaf and hearing professionals passionate about 
             accessibility, education, and technology. Our collective expertise spans linguistics, 
             education, computer vision, and user experience design.
           </p>

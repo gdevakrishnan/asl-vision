@@ -68,7 +68,7 @@ function Learn() {
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
           </Link>
-          <h1>Learn ASL</h1>
+          <h1>Learn ISL</h1>
         </header>
         
         <div className="try" style={{ marginBottom: "30px", padding: "10px 20px"}}>

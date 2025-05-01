@@ -400,6 +400,8 @@ nav h1 {
 ul {
   list-style: none;
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 2rem;
 }
 
@@ -414,8 +416,19 @@ li a:hover {
   color: #00bcd4;
 }
 
+.nav-btn {
+  background-color: #2563eb;
+  padding: 6px 10px;
+  color: #fcfcfc; 
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-/* ASLVisionAbout.css */
+.nav-btn:hover {
+  background-color: #1d4ed8;
+}
 
 /* Base Styles */
 * {

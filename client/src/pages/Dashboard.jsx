@@ -12,15 +12,15 @@ const Dashboard = () => {
       <div className="hero-content">
         <div className="hero-title-container">
           <Hand className="hero-icon" size={60} />
-          <h1 className="hero-title">ASL Vision</h1>
+          <h1 className="hero-title">ISL Vision</h1>
         </div>
 
         <p className="hero-tagline">
-          Your gateway to American Sign Language fluency
+          Your gateway to Indian Sign Language fluency
         </p>
 
         <p className="hero-description">
-          ASL Vision is an innovative platform designed to make learning American Sign Language accessible,
+          ISL Vision is an innovative platform designed to make learning Indian Sign Language accessible,
           engaging, and effective. Through interactive lessons, real-time feedback, and a supportive community,
           we're breaking down communication barriers one sign at a time.
         </p>
