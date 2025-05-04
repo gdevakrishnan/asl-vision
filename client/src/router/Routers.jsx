@@ -6,6 +6,7 @@ import Practice from '../pages/Practice'
 import Navbar from '../components/Navbar'
 import About from '../pages/About'
 import ProtectedRoute from '../utils/ProtectedRoute'
+import Play from '../pages/Play'
 
 const Routers = () => {
   return (
@@ -28,6 +29,13 @@ const Routers = () => {
             element={
               <ProtectedRoute>
                 <Practice />
+              </ProtectedRoute>
+            } />
+          <Route
+            path="/play"
+            element={
+              <ProtectedRoute>
+                <Play />
               </ProtectedRoute>
             } />
         </Routes>

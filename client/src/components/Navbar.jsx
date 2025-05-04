@@ -42,6 +42,9 @@ const Navbar = () => {
                             <li>
                                 <Link to="/practice">Practice</Link>
                             </li>
+                            <li>
+                                <Link to="/play">Play</Link>
+                            </li>
                         </SignedIn>
 
                         {/* 👤 Show Sign In if signed out */}

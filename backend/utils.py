@@ -34,7 +34,7 @@ def create_folder(label):
     return path
 
 # Capture hand images using MediaPipe and save them
-def capture_hand_images(label, image_count=500):
+def capture_hand_images(label, image_count=1000):
     mp_hands = mp.solutions.hands
     hands = mp_hands.Hands(static_image_mode=False, max_num_hands=1)
     mp_draw = mp.solutions.drawing_utils
