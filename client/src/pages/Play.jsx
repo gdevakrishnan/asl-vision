@@ -125,8 +125,8 @@ function Play() {
 
   return (
     <Fragment>
-      <div className="learn-container">
-        <header className="learn-header">
+      <div className="page-container">
+        <header className="page-header">
           <Link to="/" className="back-link">
             <svg className="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7" />

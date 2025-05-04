@@ -37,7 +37,7 @@ const Navbar = () => {
                         {/* 🔐 Only show Learn & Practice if signed in */}
                         <SignedIn>
                             <li>
-                                <Link to="/learn">Learn</Link>
+                                <Link to="/translate">Translate</Link>
                             </li>
                             <li>
                                 <Link to="/practice">Practice</Link>

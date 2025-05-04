@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-function Learn() {
+function translate() {
   const videoRef = useRef(null)
   const [prediction, setPrediction] = useState('None')
   const [isPredicting, setIsPredicting] = useState(false)
@@ -61,19 +61,15 @@ function Learn() {
 
   return (
     <Fragment>
-      <div className="learn-container">
-        <header className="learn-header">
+      <div className="page-container">
+        <header className="page-header">
           <Link to="/" className="back-link">
             <svg className="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
           </Link>
-          <h1>Learn ISL</h1>
+          <h1>Translate ISL</h1>
         </header>
-        
-        <div className="try" style={{ marginBottom: "30px", padding: "10px 20px"}}>
-          <p><span>What is you</span> name?</p>
-        </div>
 
         <div className="video-container">
           <video ref={videoRef} autoPlay muted className="webcam-feed" />
@@ -116,4 +112,4 @@ function Learn() {
   )
 }
 
-export default Learn
+export default translate
