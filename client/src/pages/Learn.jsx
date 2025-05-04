@@ -32,7 +32,7 @@ function Learn() {
       formData.append('file', blob, 'capture.png')
 
       try {
-        const response = await axios.post('http://localhost:8000/predict/', formData, {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/predict/`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

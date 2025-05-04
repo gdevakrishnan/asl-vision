@@ -22,7 +22,7 @@ function Practice() {
   useEffect(() => {
     const fetchRandomWord = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/random-word/');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/random-word/`);
         console.log(response.data.random_word);
         setRandomWord(response.data.random_word);
       } catch (error) {
@@ -47,7 +47,7 @@ function Practice() {
       formData.append('file', blob, 'capture.png')
 
       try {
-        const response = await axios.post('http://localhost:8000/predict/', formData, {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/predict/`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

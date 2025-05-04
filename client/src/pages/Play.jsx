@@ -12,7 +12,7 @@ function Play() {
 
   const fetchRandomWord = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/random-word/');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/random-word/`);
       console.log(response.data.random_word);
       setRandomWord(response.data.random_word);
     } catch (error) {
@@ -57,7 +57,7 @@ function Play() {
 
       try {
         const response = await axios.post(
-          `http://localhost:8000/similar-prediction/?word=${encodeURIComponent(randomWord)}`,
+          `${import.meta.env.VITE_API_URL}/similar-prediction/?word=${encodeURIComponent(randomWord)}`,
           formData,
           {
             headers: {
