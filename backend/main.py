@@ -1,4 +1,5 @@
 # main.py
+import os
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -9,7 +10,11 @@ import tensorflow as tf
 from collections import deque
 import random
 from fastapi import Query
+from pymongo import MongoClient
+from dotenv import load_dotenv
+from pydantic import BaseModel
 
+load_dotenv()
 app = FastAPI()
 
 # Allow React frontend to access
@@ -33,6 +38,11 @@ mp_draw = mp.solutions.drawing_utils
 
 # Prediction queue for smoothing
 prediction_queue = deque(maxlen=10)
+
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
+db = client['ivl-vision']  # uses database from URI
+scores_collection = db["scores"]
 
 @app.get("/")
 async def root():
@@ -170,3 +180,32 @@ async def similar_prediction(file: UploadFile = File(...), word: str = Query(...
             "word": word,
             "match": False
         })
+
+# Request Model
+class UserIdRequest(BaseModel):
+    userId: str
+
+# POST /update-score
+@app.post("/update-score")
+def update_score(data: UserIdRequest):
+    user = scores_collection.find_one({"userId": data.userId})
+    
+    if user:
+        new_score = user["score"] + 1
+        scores_collection.update_one(
+            {"userId": data.userId},
+            {"$set": {"score": new_score}}
+        )
+    else:
+        new_score = 1
+        scores_collection.insert_one({"userId": data.userId, "score": new_score})
+    
+    return {"userId": data.userId, "score": new_score}
+
+@app.get("/get-score")
+def get_score(userId: str = Query(...)):
+    user = scores_collection.find_one({"userId": userId})
+    if user:
+        return {"userId": user["userId"], "score": user["score"]}
+    
+    return {"userId": userId, "score": 0}

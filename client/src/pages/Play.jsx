@@ -1,15 +1,22 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useUser } from '@clerk/clerk-react';
 
 function Play() {
   const videoRef = useRef(null);
+  const intervalRef = useRef(null);
+
   const [prediction, setPrediction] = useState('None');
   const [isPredicting, setIsPredicting] = useState(false);
   const [match, setMatch] = useState(false);
   const [randomWord, setRandomWord] = useState('');
-  const intervalRef = useRef(null);
+  const [score, setScore] = useState(0);
 
+  const { user } = useUser();
+  const userId = user?.id;
+
+  // Fetch random word
   const fetchRandomWord = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/random-word/`);
@@ -20,28 +27,33 @@ function Play() {
     }
   };
 
-  useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        videoRef.current.srcObject = stream
-      })
-      .catch(err => {
-        console.error("Error accessing webcam:", err)
-      })
-  }, [])
-
-  useEffect(() => {
-    fetchRandomWord();
-  }, []);
-
-  useEffect(() => {
-    if (match && prediction && prediction.toLowerCase() === randomWord.toLowerCase()) {
-      alert(`🎉 Success! You correctly signed "${randomWord}"`);
-      stopPredicting();
-      fetchRandomWord();
+  // Fetch current score
+  const fetchScore = async () => {
+    if (!userId) return;
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/get-score`, {
+        params: { userId }
+      });
+      setScore(response.data.score);
+    } catch (error) {
+      console.error("Failed to fetch score:", error);
     }
-  }, [match, prediction, randomWord]);
+  };
 
+  // Update score by 1
+  const updateScore = async () => {
+    if (!userId) return;
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/update-score`, {
+        userId
+      });
+      setScore(response.data.score); // Update local score
+    } catch (error) {
+      console.error("Failed to update score:", error);
+    }
+  };
+
+  // Capture frame and predict
   const captureAndPredict = async () => {
     if (!videoRef.current || !randomWord) return;
 
@@ -59,15 +71,8 @@ function Play() {
         const response = await axios.post(
           `${import.meta.env.VITE_API_URL}/similar-prediction/?word=${encodeURIComponent(randomWord)}`,
           formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
+          { headers: { 'Content-Type': 'multipart/form-data' } }
         );
-
-        // Optional: set multiple values
-        console.log(response.data.predicted);
         setPrediction(response.data.predicted);
         setMatch(response.data.match);
       } catch (error) {
@@ -76,21 +81,47 @@ function Play() {
     }, 'image/png');
   };
 
-
+  // Start interval prediction
   const startPredicting = () => {
     if (!isPredicting) {
-      setIsPredicting(true)
+      setIsPredicting(true);
       intervalRef.current = setInterval(() => {
-        captureAndPredict()
-      }, 2000)  // Predict every 2 seconds
+        captureAndPredict();
+      }, 2000);
     }
-  }
+  };
 
+  // Stop prediction
   const stopPredicting = () => {
-    setIsPredicting(false)
+    setIsPredicting(false);
     setPrediction('None');
-    clearInterval(intervalRef.current)
-  }
+    clearInterval(intervalRef.current);
+  };
+
+  // Handle success
+  useEffect(() => {
+    if (match && prediction.toLowerCase() === randomWord.toLowerCase()) {
+      alert(`🎉 Success! You correctly signed "${randomWord}"`);
+      stopPredicting();
+      updateScore();
+      fetchScore();
+      fetchRandomWord();
+    }
+  }, [match, prediction, randomWord]);
+
+  // On mount: setup video, fetch word & score
+  useEffect(() => {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        if (videoRef.current) videoRef.current.srcObject = stream;
+      })
+      .catch(err => {
+        console.error("Error accessing webcam:", err);
+      });
+
+    fetchRandomWord();
+    fetchScore();
+  }, [userId]);
 
   return (
     <Fragment>
@@ -104,9 +135,14 @@ function Play() {
           <h1>Play ISL</h1>
         </header>
 
-        {
-          (randomWord) && <h1 className='random_word'>Your word: <span>{randomWord}</span></h1>
-        }
+        <div className="score-word-container">
+          {randomWord && (
+            <h1 className="random-word">Your word: <span>{randomWord}</span></h1>
+          )}
+          {score !== null && (
+            <h1 className="score">Your score: <span>{score}</span></h1>
+          )}
+        </div>
 
         <div className="video-container">
           <video ref={videoRef} autoPlay muted className="webcam-feed" />
@@ -146,7 +182,7 @@ function Play() {
         </div>
       </div>
     </Fragment>
-  )
+  );
 }
 
-export default Play
+export default Play;

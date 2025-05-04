@@ -808,11 +808,26 @@ body {
   }
 }
 
-.random_word {
-  font-size: 1.8rem;
-  color: #4a5568;
+.score-word-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+  flex-wrap: wrap;
 }
 
-.random_word span {
-  font-weight: normal;
+.score,
+.random-word {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin: 0;
+}
+
+.score span,
+.random-word span {
+  color: #0077cc;
+  font-weight: 700;
 }
